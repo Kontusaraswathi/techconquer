@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechConquer - Master AI with Real-World Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 50px 50px;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: #a0aec0;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #a0aec0;
+            margin-top: 10px;
+        }
+
+        .section {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .curriculum {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%);
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .curriculum-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+
+        .curriculum-card:hover {
+            transform: translateX(10px);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .curriculum-card h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .curriculum-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .curriculum-card li {
+            padding: 8px 0;
+            color: #a0aec0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .curriculum-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        .projects {
+            background: #0a0e27;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .project-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .project-card p {
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+
+        .pricing {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%);
+            text-align: center;
+        }
+
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 50px;
+            border-radius: 30px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .price {
+            font-size: 72px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+
+        .price-subtitle {
+            color: #a0aec0;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .pricing-features li {
+            padding: 15px 0;
+            color: #a0aec0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            list-style: none;
+            position: relative;
+            padding-left: 35px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-large {
+            background: white;
+            color: #667eea;
+            padding: 18px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            background: #0a0e27;
+            padding: 50px;
+            text-align: center;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        footer p {
+            color: #a0aec0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TechConquer</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#curriculum">Curriculum</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+        </ul>
+        <a href="#pricing" class="cta-btn">Enroll Now</a>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Master AI with Real-World Experience</h1>
+            <p>Learn Machine learning and work on actual industry projects</p>
+            <a href="#pricing" class="cta-btn" style="font-size: 18px; padding: 15px 40px;">Start Your Journey</a>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Practical Learning</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Real Projects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">Live</div>
+                    <div class="stat-label">Interactive Classes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <h2 class="section-title">Why Choose TechConquer?</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3>Hands-On Coding</h3>
+                <p>No PPT slides! Every concept is taught through live coding sessions where you build real applications from scratch.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Industry Projects</h3>
+                <p>Work on the same projects used in actual companies. Learn from someone currently doing an ML internship.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Practical First</h3>
+                <p>Build first, understand later. You'll create working models before diving deep into the mathematical theory.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Small Batches</h3>
+                <p>Limited students per batch ensures personal attention and doubt resolution in every session.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Portfolio Building</h3>
+                <p>Create 5+ impressive projects for your GitHub that will make recruiters notice you.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Current Tech Stack</h3>
+                <p>Learn the latest frameworks and tools used in 2025, not outdated technologies.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="curriculum" class="section curriculum">
+        <h2 class="section-title">Comprehensive Curriculum</h2>
+        <div class="curriculum-grid">
+            <div class="curriculum-card">
+                <h3>🤖 Machine Learning</h3>
+                <ul>
+                    <li>Python & NumPy Fundamentals</li>
+                    <li>Supervised Learning (Regression, Classification)</li>
+                    <li>Unsupervised Learning (Clustering, PCA)</li>
+                    <li>Ensemble Methods (Random Forest, XGBoost)</li>
+                    <li>Model Evaluation & Hyperparameter Tuning</li>
+                    <li>Feature Engineering & Selection</li>
+                    <li>Scikit-learn & Pandas Mastery</li>
+		    <li>All machine learning Algorithms</li>
+                </ul>
+            </div>
+            
+            <div class="curriculum-card">
+                <h3>🧠 Deep Learning</h3>
+                <ul>
+                    <li>Neural Networks from Scratch</li>
+                    <li>TensorFlow & PyTorch</li>
+                    <li>CNNs for Image Processing</li>
+                    <li>RNNs, LSTMs & GRUs</li>
+                    <li>Transfer Learning & Fine-tuning</li>
+                    <li>Attention Mechanisms</li>
+                    <li>Model Optimization & Deployment</li>
+                </ul>
+            </div>
+            
+            <div class="curriculum-card">
+                <h3>👁️ Computer Vision</h3>
+                <ul>
+                    <li>Image Processing with OpenCV</li>
+                    <li>Object Detection (YOLO, R-CNN)</li>
+                    <li>Semantic & Instance Segmentation</li>
+                    <li>Face Recognition & Tracking</li>
+                    <li>Image Classification & Augmentation</li>
+                    <li>GANs for Image Generation</li>
+                    <li>Real-time Video Analysis</li>
+                </ul>
+            </div>
+            
+            <div class="curriculum-card">
+                <h3>💬 Natural Language Processing</h3>
+                <ul>
+                    <li>Text Preprocessing & Tokenization</li>
+                    <li>Word Embeddings (Word2Vec, GloVe)</li>
+                    <li>Transformers & BERT</li>
+                    <li>Sentiment Analysis</li>
+                    <li>Named Entity Recognition</li>
+                    <li>Text Generation & Summarization</li>
+                    <li>Chatbot Development</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section projects">
+        <h2 class="section-title">Real-World Projects You'll Build</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <span class="project-tag">ML + Web</span>
+                <h3>Stock Price Predictor</h3>
+                <p>Build an LSTM-based model to predict stock prices with a live dashboard showing real-time predictions and analysis.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">Computer Vision</span>
+                <h3>Face Mask Detection System</h3>
+                <p>Real-time object detection using YOLO to identify people wearing masks correctly, deployed with live camera feed.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">NLP</span>
+                <h3>AI Chatbot with Personality</h3>
+                <p>Create a conversational AI using transformers that can answer questions, maintain context, and have natural conversations.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">Deep Learning</span>
+                <h3>Image Style Transfer</h3>
+                <p>Apply artistic styles to any image using neural style transfer, creating Instagram-worthy AI-generated art.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">ML + Backend</span>
+                <h3>Movie Recommendation Engine</h3>
+                <p>Build a Netflix-style recommender system using collaborative filtering and deploy it as a REST API.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">Computer Vision</span>
+                <h3>License Plate Recognition</h3>
+                <p>OCR system to detect and read vehicle license plates from images and videos using deep learning models.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">NLP</span>
+                <h3>Fake News Detector</h3>
+                <p>Text classification model to identify misinformation using BERT and deploy as a browser extension.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">End-to-End ML</span>
+                <h3>Customer Churn Prediction</h3>
+                <p>Full pipeline project from data collection to deployment, predicting which customers will leave a service.</p>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-tag">Computer Vision</span>
+                <h3>Gesture Control System</h3>
+                <p>Control your computer using hand gestures detected through webcam using MediaPipe and custom ML models.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section pricing">
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <div class="pricing-card">
+            <h3 style="color: #667eea; font-size: 28px;">Complete AI Mastery Package</h3>
+            <div class="price">₹10,000</div>
+            <p class="price-subtitle">One-time payment • Lifetime access to materials</p>
+            
+            <ul class="pricing-features">
+                <li>4-6 months of live interactive classes</li>
+                <li>40+ hours of hands-on coding sessions</li>
+                <li>5+ industry-level projects for portfolio</li>
+                <li>Complete ML, DL, CV & NLP coverage</li>
+                <li>Personal doubt-solving sessions</li>
+                <li>GitHub repository access</li>
+                <li>Project code & datasets included</li>
+                <li>Career guidance & resume review</li>
+                <li>Interview preparation support</li>
+                
+            </ul>
+            
+            <a href="#" class="cta-btn" style="margin-top: 30px; display: inline-block; font-size: 18px; padding: 15px 40px;">Enroll Now</a>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to Become an AI Expert?</h2>
+        <p>Join students and professionals who are already building amazing ML projects</p>
+        <a href="#pricing" class="cta-large">Start Learning Today</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 TechConquer. Teaching AI the right way - through practice, not slides.</p>
+        <p style="margin-top: 15px; font-size: 14px;">Contact: techconquer@gmail.com</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .curriculum-card, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
